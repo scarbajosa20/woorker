@@ -1,17 +1,38 @@
 import React, { Component } from 'react'
 import { Navbar, Container, Row, Col, Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import './style.css'
+import './style.css';
+import Cookies from 'universal-cookie';
+
+
+
+const cookies = new Cookies(); 
+
+ 
 
 
 export default class NavbarComp extends Component {
+
+    signOut=async()=>{
+        cookies.remove('id');
+        window.location.href="/";
+    }
+
     render() {
+        let verifed = !(cookies.get('id') == null)
+        console.log(verifed)
         return (
             
                 <Col className="col-12 position-fixed navbar">
-                    <h1 className="navbar-home-link">HOME</h1>
-                  
-                    <h2 className="navbar-profile-link">PROFILE</h2>
+                { verifed
+                    ? <button type="button" className="btn btn-link">HOME</button>
+                    : null
+                }
+                    { verifed 
+                    ? <button type="button" className="btn btn-link" onClick={()=> this.signOut()}>CERRAR SESION</button>
+                    : null
+                }
+                    
                     
                 </Col> 
         )

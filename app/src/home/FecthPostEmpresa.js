@@ -26,7 +26,7 @@ export default class FecthPostE extends Component {
             .then(response => {
                 let lista = response.data;
                 this.setState({lista:lista})       
-                console.log(this.state.lista)
+                console.log("lista: "+this.state.lista)
                   
                  
             })

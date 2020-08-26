@@ -14,7 +14,7 @@ export default class CreatePostButton extends Component {
     render() {
         return (
             
-            <Button className="post-button" onClick={() => this.createPost()}>Add post</Button>
+            <Button className="btn btn-primary" onClick={() => this.createPost()}>Add post</Button>
             
         )
     }

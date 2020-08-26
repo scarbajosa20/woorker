@@ -20,53 +20,68 @@ export default class FecthPostE extends Component {
         this.state = {
             lista: [],
             id: cookies.get('id'),
+            verifed : !(cookies.get('id') == null)
         }
     }
 
 
     _verVentanas =async () => {
-       await axios.get(url)
-            .then(response => {
-                let lista =
-                    response.data
-                    ;
-                this.setState({
-                    lista: lista.filter(lista => lista.trabajador == this.state.id
-                    )
+        window.onload = (event) => {
+            fetch(url+"/findOne?_where=(trabajador,eq,"+this.state.id+")")
+                .then(response => response.json()) 
+                    .then(results=>{
+                    let lista =  results;
+                    console.log(lista)
+                    this.setState({
+                        lista: lista.filter(lista => lista.trabajador == this.state.id
+                        )
+
+                    })
+                    
                 })
 
-                return
-
-            })
             .catch(error => {
                 console.log(error)
             })
 
+        }
+      
     }
 
-
+   
 
     render() {
-        console.log(this.state)
-        this._verVentanas();
+        this._verVentanas()
         return (
-            <div>
-                <CreatePostButton/>
-                <div>
+            
+                <div >
+                    <CreatePostButton/>            
                     <h2>Anuncios</h2>
-
-                    {
-                        this.state.lista.map
-                            (ventana => (
-                                <div key={ventana.id_anuncio} className="anuncio">
-                                    <MontaAnuncio linea={ventana} />
-                                </div>
-                            ))}
-
+                    <div className="dockerAds"    >
+                                            
+                        {this.state.lista.map(ad => (
+                            <Col md={3} className="ads" key= {ad.id_anuncio}>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <strong> Titulo: </strong> <p>{ad.titulo}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <strong> Años de experiencia: </strong> <p>{ad.experiencia}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <small> Fecha de publicacion: </small> <small>{ad.fecha_publicacion}</small>
+                                        </div>
+                                    </div>
+                            </Col> 
+                        ))}                                    
+                        
+                    </div>
                 </div>
-            </div>
-
-
+                
         )
     }
 }

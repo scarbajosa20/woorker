@@ -97,7 +97,7 @@ export default class SignInEmpresas extends Component {
             </div>    
         </div>
         <br/>
-        <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Registrarse!!!</button>                
+        <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>¡Registrarse!</button>                
     </div>
                     )
                 }

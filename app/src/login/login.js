@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../css/login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'; 
-import Cookies from 'universal-cookie'
+import Cookies from 'universal-cookie';
 
 
 
@@ -19,7 +19,9 @@ export default class Login extends Component{
             try: false,
             email: '',
             passw:'',
-            id_trabajador : 0
+            id_trabajador : cookies.get('id'),
+            verifed : !(cookies.get('id') == null),
+            lista : []
         }
      }
         this.iniciarSesion = this.iniciarSesion.bind(this)
@@ -75,6 +77,13 @@ export default class Login extends Component{
             
             
             })
+           
+
+        .catch(error => {
+            console.log(error)
+        })
+
+
             
         .catch(error=>{
             console.log(error);
@@ -103,6 +112,7 @@ export default class Login extends Component{
             
             })
             
+            
         }
       console.log(this.state.form.try);
       
@@ -111,11 +121,8 @@ export default class Login extends Component{
     registrarse(){
         window.location.href="/signin"
     }
-
-
-
-
-    render() {
+    
+    tryOut(){
         return (
             <div className= 'containerPrincipal'>
                 <div className='containerSecundario'>
@@ -155,5 +162,19 @@ export default class Login extends Component{
                 </div>
             </div>
         )
+    }
+
+
+
+    render() {
+        console.log(this.state.form.verifed)
+        return (
+            <div>
+           {this.state.form.verifed
+           ?  window.location.href="/home"
+           :  this.tryOut()
+           }
+           </div>
+            )
     }     
 }
